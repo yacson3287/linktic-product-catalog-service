@@ -1,10 +1,12 @@
 package com.linktic.product_catalog_service.infrastructure.adapters.restcontrollers;
 
 import com.linktic.product_catalog_service.domain.model.Category;
+import com.linktic.product_catalog_service.domain.ports.in.AddProductsUseCase;
 import com.linktic.product_catalog_service.domain.ports.in.CreateProductUseCase;
 import com.linktic.product_catalog_service.domain.ports.in.FindProductUseCase;
 import com.linktic.product_catalog_service.infrastructure.adapters.restcontrollers.dto.ProductCreateRequest;
 import com.linktic.product_catalog_service.infrastructure.adapters.restcontrollers.dto.ProductResponse;
+import com.linktic.product_catalog_service.infrastructure.adapters.restcontrollers.dto.UpdateProductQuantityRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class ProductRestController {
 
     private final CreateProductUseCase createProductUseCase;
     private final FindProductUseCase findProductUseCase;
+    private final AddProductsUseCase addProductsUseCase;
 
 
     @PostMapping
@@ -51,6 +54,12 @@ public class ProductRestController {
         return products.stream()
                 .map(ProductResponse::convertFromDomain)
                 .toList();
+    }
+
+    @PutMapping("add-quantity")
+    public ProductResponse addProductQuantity(@RequestBody @Valid UpdateProductQuantityRequest request) {
+        var product = addProductsUseCase.execute(request.getProductId(), request.getQuantity());
+        return ProductResponse.convertFromDomain(product);
     }
 
 
