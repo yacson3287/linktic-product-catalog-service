@@ -13,4 +13,6 @@ public interface FindProductUseCase {
 
     List<Product> execute();
 
+    List<Product> execute(List<Long> ids);
+
 }

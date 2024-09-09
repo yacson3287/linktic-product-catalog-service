@@ -70,5 +70,13 @@ public class ProductRestController {
         return ProductResponse.convertFromDomain(product);
     }
 
+    @PostMapping("find-by-ids")
+    public List<ProductResponse> findByIds(@RequestBody List<Long> ids) {
+        var products = findProductUseCase.execute(ids);
+        return products.stream()
+                .map(ProductResponse::convertFromDomain)
+                .toList();
+    }
+
 
 }

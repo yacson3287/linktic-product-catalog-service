@@ -43,6 +43,11 @@ public class FindProductUseCaseImpl implements FindProductUseCase {
         return productRepository.findAll();
     }
 
+    @Override
+    public List<Product> execute(List<Long> ids) {
+       return productRepository.findByIds(ids);
+    }
+
     private void validateCategory(Category category) {
         category = categoryRepository.findById(category.getId());
         if (category == null) {
