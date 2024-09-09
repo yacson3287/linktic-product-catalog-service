@@ -48,6 +48,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public List<Product> findByIds(List<Long> ids) {
+        var entities = productJPARepository.findAllById(ids);
+        return entities.stream()
+                .map(ProductEntity::convertToDomain)
+                .toList();
+    }
+
+    @Override
     public Product findByName(String name) {
         var entity = productJPARepository.findByName(name);
         return entity.map(ProductEntity::convertToDomain).orElse(null);

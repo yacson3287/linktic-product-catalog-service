@@ -27,10 +27,8 @@ public class SubtractProductUseCaseImpl implements SubTractProductUseCase {
             exception.addDetail("quantity", "it has not enough quantity the this product");
             throw new BadRequestExceptionService(exception);
         }
-
         var newQuantity = product.getQuantity() - quantity;
         product.setQuantity(newQuantity);
-
     }
 
     private Product findProduct(Long id) {
