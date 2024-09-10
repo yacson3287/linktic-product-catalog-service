@@ -26,6 +26,20 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
+    public List<Product> save(List<Product> products) {
+
+        var entities = products.stream()
+                .map(ProductEntity::convertFromDomain)
+                .toList();
+
+        entities = productJPARepository.saveAll(entities);
+
+        return entities.stream()
+                .map(ProductEntity::convertToDomain)
+                .toList();
+    }
+
+    @Override
     public Product findById(Long id) {
         var entity = productJPARepository.findById(id);
         return entity.map(ProductEntity::convertToDomain).orElse(null);
