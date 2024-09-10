@@ -15,10 +15,10 @@ public class SubtractProductUseCaseImpl implements SubTractProductUseCase {
     private final ProductRepository productRepository;
 
     @Override
-    public Product execute(Long productId, int quantity) {
-        var product = findProduct(productId);
-        subtract(product, quantity);
-        return productRepository.save(product);
+    public Product execute(Product product) {
+        var currentProduct = findProduct(product.getId());
+        subtract(currentProduct, product.getQuantity());
+        return productRepository.save(currentProduct);
     }
 
     private void subtract(Product product, int quantity) {

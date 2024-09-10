@@ -4,7 +4,7 @@ import com.linktic.product_catalog_service.domain.model.Product;
 
 public interface SubTractProductUseCase {
 
-    Product execute(Long productId, int quantity);
+    Product execute(Product product);
 
 
 

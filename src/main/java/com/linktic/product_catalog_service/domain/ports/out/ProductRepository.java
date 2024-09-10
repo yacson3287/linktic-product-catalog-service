@@ -9,6 +9,8 @@ public interface ProductRepository {
 
     Product save(Product product);
 
+    List<Product> save(List<Product> products);
+
     Product findById(Long id);
 
     List<Product> findByCategory(Category category);

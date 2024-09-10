@@ -1,18 +1,23 @@
 package com.linktic.product_catalog_service.infrastructure.adapters.restcontrollers.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.linktic.product_catalog_service.domain.model.Product;
+import lombok.*;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
+@Builder
 public class UpdateProductQuantityRequest {
 
-    @NotNull
-    private Long productId;
-    @NotNull
-    @Positive
+    private Long id;
     private Integer quantity;
+
+    public Product convertToDomain() {
+        return Product.builder()
+                .id(id)
+                .quantity(quantity)
+                .build();
+    }
 
 }

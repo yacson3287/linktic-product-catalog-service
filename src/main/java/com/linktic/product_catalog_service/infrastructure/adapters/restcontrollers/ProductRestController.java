@@ -59,14 +59,16 @@ public class ProductRestController {
     }
 
     @PutMapping("add-quantity")
-    public ProductResponse addProductQuantity(@RequestBody @Valid UpdateProductQuantityRequest request) {
-        var product = addProductsUseCase.execute(request.getProductId(), request.getQuantity());
-        return ProductResponse.convertFromDomain(product);
+    public List<ProductResponse> addProductQuantity(@RequestBody List<UpdateProductQuantityRequest> requests) {
+        var products = addProductsUseCase.execute(requests.stream().map(UpdateProductQuantityRequest::convertToDomain).toList());
+        return products.stream()
+                .map(ProductResponse::convertFromDomain)
+                .toList();
     }
 
     @PutMapping("subtract-quantity")
     public ProductResponse subtractProductQuantity(@RequestBody @Valid UpdateProductQuantityRequest request) {
-        var product = subTractProductUseCase.execute(request.getProductId(), request.getQuantity());
+        var product = subTractProductUseCase.execute(request.convertToDomain());
         return ProductResponse.convertFromDomain(product);
     }
 
