@@ -4,10 +4,14 @@ import com.linktic.product_catalog_service.domain.model.Category;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class CategoryUpdateRequest {
 
     @NotBlank
